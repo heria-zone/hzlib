@@ -7,6 +7,9 @@
 </p>
 
 <p align="center">
+    <a href="https://www.curseforge.com/minecraft/mc-mods/hzlib">
+        <img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1586461?logo=CurseForge">
+    </a>
     <a href="https://modrinth.com/mod/hzlib">
         <img alt="Modrinth" src="https://img.shields.io/modrinth/dt/hzlib?logo=Modrinth">
     </a>
