@@ -1,0 +1,116 @@
+                   GNU LESSER GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+HZLib — Heria Zone Shared Library
+Copyright (C) 2024–2026 MSymbios / Heria Zone
+
+This library is free software: you can use it, modify it, and distribute
+it under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This library is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+-------------------------------------------------------------------------------
+
+PLAIN LANGUAGE SUMMARY (this is not the legal text — see below for that)
+
+You are free to:
+  - Use HZLib in your mod or project, including commercially
+  - Modify HZLib for your own use
+  - Distribute HZLib or your modified version of it
+
+You must:
+  - Credit MSymbios / Heria Zone as the original author
+  - Keep this license notice intact in all copies
+  - If you distribute a modified version of HZLib itself, you must
+    publish those changes under this same license (LGPL v3)
+  - State clearly what you changed from the original
+
+You do NOT need to:
+  - Open source your own mod that uses HZLib
+  - Apply LGPL to your own code that merely depends on HZLib
+
+The code is mine. You can do whatever you want with it.
+Just make sure people know where it came from.
+  — MSymbios / Heria Zone
+
+-------------------------------------------------------------------------------
+
+Full license text: https://www.gnu.org/licenses/lgpl-3.0.en.html
+
+The full text of the GNU Lesser General Public License v3 is reproduced
+below, as required by the license terms.
+
+                   GNU LESSER GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+
+  This version of the GNU Lesser General Public License incorporates
+the terms and conditions of version 3 of the GNU General Public
+License, supplemented by the additional permissions listed below.
+
+  0. Additional Definitions.
+
+  As used herein, "this License" refers to version 3 of the GNU Lesser
+General Public License, and the "GNU GPL" refers to version 3 of the GNU
+General Public License.
+
+  "The Library" refers to a covered work governed by this License,
+other than an Application or a Combined Work as defined below.
+
+  An "Application" is any work that makes use of an interface provided
+by the Library, but which is not otherwise based on the Library.
+Defining a subclass of a class defined by the Library is deemed a mode
+of using an interface provided by the Library.
+
+  A "Combined Work" is a work produced by combining or linking an
+Application with the Library. The particular version of the Library
+with which the Combined Work was made is also called the "Linked
+Version".
+
+  The "Minimal Corresponding Source" for a Combined Work means the
+Corresponding Source for the Combined Work, excluding any source code
+for portions of the Combined Work that, considered in isolation, are
+based on the Application, and not on the Linked Version.
+
+  The "Corresponding Application Code" for a Combined Work means the
+object code and/or source code for the Application, including any data
+and utilities needed for reproducing the Combined Work from the
+Application, but excluding the System Libraries of the Combined Work.
+
+  1. Exception to Section 3 of the GNU GPL.
+
+  You may convey a covered work under sections 3 and 4 of this License
+without being bound by section 3 of the GNU GPL.
+
+  2. Conveying Verbatim Copies.
+
+  You may convey verbatim copies of the Library's source code as you
+receive it, in any medium, provided that you conspicuously and
+appropriately publish on each copy an appropriate copyright notice and
+disclaimer of warranty; keep intact all notices stating that this
+License and any non-permissive terms added in accord with section 7
+apply to the code; keep intact all notices of the absence of any
+warranty; and give all recipients a copy of this License along with
+the Library.
+
+  You may charge any price or no price for each copy, and you may
+offer support or warranty protection for a fee.
+
+  3. Conveying Modified Versions.
+
+  You may convey a copy of the Library under the terms of section 4
+of the GNU GPL, provided that you accompany the Library with the
+complete Corresponding Source of the Library, including any changes,
+and the complete machine-readable Corresponding Source must be
+provided in a manner that allows the recipient to create a combined
+work without any additional installation.
+
