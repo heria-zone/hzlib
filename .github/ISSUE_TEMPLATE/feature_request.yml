@@ -1,0 +1,56 @@
+name: Feature Request
+description: Have an idea for something HZLib should do? Tell us about it.
+title: "[FEATURE] "
+labels: ["enhancement", "needs-discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests are welcome. Lead with the **use case**, not the solution — 
+        "I want to do X but currently can't because Y" is more useful than "please add Z."
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What Are You Trying to Do?
+      description: Describe the goal, not the implementation. What would this enable in your mod?
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's Currently Preventing It?
+      description: What in HZLib's current API makes this difficult or impossible?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: What Would You Like to See?
+      description: A rough idea of the solution — API shape, behaviour, etc. This doesn't have to be final.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives You've Considered
+      description: Any workarounds you've tried, or other approaches that might solve the problem.
+
+  - type: dropdown
+    id: breaking
+    attributes:
+      label: Would This Be a Breaking Change?
+      description: Would this change the existing public API in a way that breaks mods already using HZLib?
+      options:
+        - "No — purely additive"
+        - "Yes — changes existing API"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: input
+    id: hzlib-version
+    attributes:
+      label: HZLib Version You're On
+      placeholder: "e.g. 1.0.0"
