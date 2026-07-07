@@ -11,9 +11,9 @@
         <img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1586461?logo=CurseForge">
     </a>
     <a href="https://modrinth.com/mod/hzlib">
-        <img alt="Modrinth" src="https://img.shields.io/modrinth/dt/hzlib?logo=Modrinth">
+        <img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/KxsiDURd?logo=Modrinth">
     </a>
-    <a href="https://discord.gg/KdZZMj89bU">
+    <a href="https://discord.gg/ZmCPM22FCK">
         <img alt="Discord" src="https://img.shields.io/discord/1156134479149158402?logo=Discord">
     </a>
 </p>
@@ -21,6 +21,7 @@
 <p align="center">
     <a href="https://github.com/heria-zone/reboot-lovely-robot/issues">Issues</a> ·
     <a href="#what-it-provides">What It Provides</a> ·
+    <a href="#dependency-map">Dependency Map</a> ·
     <a href="#version-support">Version Support</a> ·
     <a href="#for-mod-developers">For Mod Developers</a>
 </p>
@@ -28,13 +29,15 @@
 ---
 
 > **⚠️ In Development**
-> HZLib is in active development and has not reached a stable API release. Breaking changes may occur between alpha versions. Not recommended for third-party mods until the API is frozen.
+> HZLib is in active development. The API is not yet frozen — breaking changes may occur between versions. Not recommended for third-party mods until a stable API release is announced.
+>
+> The codebase currently lives inside the [reboot-lovely-robot](https://github.com/heria-zone/reboot-lovely-robot) monorepo under `sources/common/hzlib-1.21.1/`. It will be extracted to its own repository once stable.
 
 ---
 
 ## About
 
-HZLib is the shared foundation that all Heria Zone mods are built on. It provides a loader-agnostic entity framework, variant system, animation profiles, and platform abstractions — written once, working across Forge, NeoForge, and Fabric without duplication.
+HZLib is the shared foundation that all Heria Zone mods are built on. It provides a loader-agnostic entity framework, variant system, animation profiles, NBT data pipeline, and platform abstractions — written once, working across Forge, NeoForge, and Fabric without duplication.
 
 If you're playing a Heria Zone mod, this is the engine underneath it. It does nothing on its own.
 
@@ -43,20 +46,29 @@ If you're playing a Heria Zone mod, this is the engine underneath it. It does no
 ## What It Provides
 
 ### Entity Framework
-- `InternalEntityType<T>` — base entity type with feature composition, stat configuration, and variant management
-- `InternalEntity` — base entity class with `finalizeSpawn()` lifecycle hook
+- `NativeEntity` — root entity base class
+- `NativeEntityFamily<T>` — family descriptor with feature composition, stat configuration, and variant management
 - `EntityFeature` — composable feature system via `withFeature(Class, Feature)`
 
-### Variant System
+### Variant & Appearance System
 - `TextureVariantFeature`, `ModelVariantFeature`, `AnimatorVariantFeature` — data-driven variant registration
 - `SizeVariantFeature` with `SizeConfig` — dynamic hitbox management, per-pose `EntityDimensions`, stat multipliers, O(1) lookup
-- `AnimatorVariantFeature` supports optional `AnimationProfile` per variant
+- `ConditionalAppearanceFeature` — switches active appearance based on runtime conditions
+- `CompositeAppearanceFeature` — composes multiple appearance layers into a single resolved appearance
 
 ### Animation Profile System
-- `AnimationProfile` — named animation slots (idle, walk, rest, sit, ride, attack, hurt) with full builder API and null-safe fallback
+- `AnimationProfile` — named slots (idle, walk, rest, sit, ride, attack, hurt) with full builder API and null-safe fallback
+- `IdleSlot` / `IdleCondition` — declarative idle state system; replaces tick-driven standby logic
 - `AnimationPool`, `WeightedAnimation`, `SelectionStrategy` (RANDOM, WEIGHTED_RANDOM, SEQUENTIAL), `LoopBehavior`
-- `AnimationSequence` — pull-model exit conditions via `Predicate<LivingEntity>`
-- Pure Java core — zero GeckoLib or Minecraft imports in profile classes
+- `BoneVisibilityFeature` — declarative per-bone show/hide rules evaluated each render frame
+- Zero GeckoLib or Minecraft imports in core profile classes — pure Java
+
+### NBT Data Pipeline
+- `DataCompound` — version-agnostic NBT wrapper; zero MC imports in pipeline code
+- `DataField<T>` — typed field handles; string key encapsulated, zero literals at call sites
+- `EntityDataSchema` — ordered field registry; write/read via `DataCompound`
+- `MigrationChain` / `MigrationStep` — sole migration authority; cross-field capable
+- Version-safe UUID storage across all supported MC versions
 
 ### Progression and Combat
 - `LevelFeature`, `CombatLevelFeature` — entity levelling with attribute scaling
@@ -67,20 +79,26 @@ If you're playing a Heria Zone mod, this is the engine underneath it. It does no
 - `IPlatformServices` — cross-loader abstraction for entity/item/recipe/command registration, config, events, and networking
 - Service locator pattern (`Services.java`) for clean loader-agnostic access
 
-### Utilities
-- Math, NBT, validation, and config bounds utilities in the Common module
-
 ---
 
-## Who Uses It
+## Dependency Map
 
 ```
-HZLib  ←  LovelyLib  ←  Lovely Robot (Legacy, Tribute, Reboot)
-HZLib  ←  Monsters & Girls
-HZLib  ←  [future Heria Zone mods]
+HZLib (this library)
+│
+├── HZLib: Animate (optional — GeckoLib adapter, planned)
+│   ├── LovelyLib
+│   │   ├── Lovely Robot: Legacy
+│   │   ├── Lovely Robot: Tribute
+│   │   └── Lovely Robot: Reboot
+│   └── Monsters & Girls
+│
+├── Cubelings           (vanilla renderer — no HZLib: Animate needed)
+├── Reignited HUD       (UI only — no HZLib: Animate needed)
+└── [future Heria Zone mods]
 ```
 
-HZLib is the lowest layer. Mod-specific libraries like LovelyLib build on it. Content mods build on those — or directly on HZLib for mods that don't need a mid-layer library.
+HZLib core has zero GeckoLib imports. Mods with Blockbench-animated entities will use the optional **HZLib: Animate** adapter layer (planned). Mods using vanilla rendering only depend on HZLib core.
 
 ---
 
@@ -88,7 +106,7 @@ HZLib is the lowest layer. Mod-specific libraries like LovelyLib build on it. Co
 
 | Minecraft | Fabric | Forge | NeoForge |
 |-----------|--------|-------|----------|
-| 1.21.1    | ✅     | ✅    | ✅       |
+| 1.21.1    | ✅ v1.0.0 | ✅ v1.0.0 | ✅ v1.0.0 |
 | 1.20.1    | Planned | Planned | — |
 | 1.19.4    | Planned | Planned | — |
 | 1.19.2    | Planned | Planned | — |
@@ -104,26 +122,36 @@ Backport priority follows the dependent mods. 1.21.1 is the reference implementa
 
 ## For Mod Developers
 
-HZLib is not yet published as a standalone Maven artifact. The API is not frozen — do not build third-party mods against it until a stable release is announced.
+HZLib is published on CurseForge and Modrinth but the API is not yet frozen. Third-party mods should wait for a stable API release before building against it.
 
-Once stable, HZLib will be:
+Once the API is stable, HZLib will be:
 - Extracted to its own GitHub repository
 - Published to a public Maven repository
 - Documented with developer guides and API references
 
-Follow the [Heria Zone Discord](https://discord.gg/KdZZMj89bU) or [Patreon](https://patreon.com/heriazone) for updates.
+Follow the [Heria Zone Discord](https://discord.gg/ZmCPM22FCK) or [Patreon](https://patreon.com/heriazone) for updates.
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
 ---
 
 ## Issues
 
-Report bugs or issues via [GitHub Issues](https://github.com/heria-zone/reboot-lovely-robot/issues) (hosted in the reboot-lovely-robot repo until HZLib has its own).
+Report bugs via [GitHub Issues](https://github.com/heria-zone/reboot-lovely-robot/issues) — hosted in the reboot-lovely-robot repo until HZLib has its own.
 
 ---
 
 ## License
 
-© Heria Zone. All Rights Reserved.
+Licensed under the **GNU Lesser General Public License v3.0 (LGPL v3)**.
+
+You are free to use HZLib in your mod, modify it, and distribute it — as long as modifications to HZLib itself are shared under the same license and credit is given to the original authors.
+
+See [LICENSE](LICENSE) for the full terms.
 
 ---
 
